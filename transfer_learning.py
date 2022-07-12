@@ -166,7 +166,7 @@ into individual images and save them to a dir with the letter as the first chara
 from PIL import Image
 
 def load_image(file):
-    return Image.open("./letter_photos" + str(file) + "_raw.jpeg")
+    return Image.open("./letter_photos/" + str(file) + "_raw.jpeg")
 
 row_splits = 17
 col_splits = 13
@@ -213,7 +213,7 @@ def split_cols_save(letter, row_num, img):
     for i,img in enumerate(fin_img):
         #img.show()
         resized_img = img.resize((28,28))
-        resized_img.save("./data/im_tests.nosync/processed_letters/" + str(letter) + "_" + str(row_num) + str(i) + ".png")
+        resized_img.save("./processed_letters/" + str(letter) + "_" + str(row_num) + str(i) + ".png")
     #return fin_img
 
 def process_img(letter):
@@ -240,7 +240,7 @@ import os, os.path
 
 imgs = []
 labels=[]
-path = "/Users/jason/Documents/school/Summer2021/DS7374/homework/data/im_tests.nosync/processed_letters/"
+path = "/Users/jason/Documents/research/transfer_learning/processed_letters/"
 valid_images = [".png"]
 for f in os.listdir(path):
     files=[]
@@ -251,7 +251,7 @@ for f in os.listdir(path):
     imgs.append(Image.open(os.path.join(path,f)).convert('LA'))
 
 #%%
-from keras.preprocessing.image import img_to_array
+from keras.utils import img_to_array
 
 np_imgs = [img_to_array(img)[:,:,-2] for img in imgs]
 
